@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import csvParser from 'csv-parser';
-import { AppError } from '../middlewares/errorHandler';
+import { AppError } from '../middlewares/errorHandler.js';
 
 export class UploadService {
   /**
@@ -28,14 +28,14 @@ export class UploadService {
           // Keep only the first 5 rows for the preview
           if (previewRows.length < 5) {
             // Map the parsed JSON object back into a flat array based on headers
-           
+
             previewRows.push(data);
           }
         })
         .on('end', () => {
           // Extract the exact UUID importId by stripping the .csv extension
           const importId = path.parse(filePath).name;
-          
+
           resolve({
             importId,
             originalFileName: originalName,
@@ -43,7 +43,7 @@ export class UploadService {
             uploadedAt: new Date().toISOString(),
             headers,
             previewRows,
-            totalRows
+            totalRows,
           });
         })
         .on('error', () => {

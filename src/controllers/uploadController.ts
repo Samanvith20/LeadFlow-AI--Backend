@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { asyncHandler } from '../utils/asyncHandler';
-import { UploadService } from '../services/UploadService';
-import { QueueService } from '../services/QueueService';
-import { AppError } from '../middlewares/errorHandler';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import { UploadService } from '../services/UploadService.js';
+import { QueueService } from '../services/QueueService.js';
+import { AppError } from '../middlewares/errorHandler.js';
 
 export class UploadController {
   /**
@@ -13,19 +13,23 @@ export class UploadController {
    */
   public static generatePreview = asyncHandler(async (req: Request, res: Response) => {
     if (!req.file) {
-      throw new AppError(400, 'MISSING_FILE', 'No file was uploaded. Please attach a valid CSV file.');
+      throw new AppError(
+        400,
+        'MISSING_FILE',
+        'No file was uploaded. Please attach a valid CSV file.',
+      );
     }
 
     const result = await UploadService.generatePreview(
       req.file.path,
       req.file.originalname,
-      req.file.size
+      req.file.size,
     );
 
     res.status(200).json({
       success: true,
       message: 'CSV uploaded successfully',
-      data: result
+      data: result,
     });
   });
 
@@ -52,8 +56,8 @@ export class UploadController {
       message: 'Import job created successfully.',
       data: {
         jobId: job.id,
-        status: 'queued'
-      }
+        status: 'queued',
+      },
     });
   });
 }

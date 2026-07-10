@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { asyncHandler } from '../utils/asyncHandler';
-import { AppError } from '../middlewares/errorHandler';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import { AppError } from '../middlewares/errorHandler.js';
 
 export class JobController {
   /**
@@ -9,7 +9,7 @@ export class JobController {
    */
   public static getJobStatus = asyncHandler(async (req: Request, res: Response) => {
     const { jobId } = req.params;
-    
+
     // TODO: Connect to BullMQ / Redis to fetch actual status
     res.status(200).json({
       success: true,
@@ -18,8 +18,8 @@ export class JobController {
         status: 'pending',
         progress: 0,
         processedRows: 0,
-        totalRows: 0
-      }
+        totalRows: 0,
+      },
     });
   });
 
@@ -40,9 +40,9 @@ export class JobController {
         importStatistics: {
           totalRows: 0,
           successfullyProcessed: 0,
-          failedOrSkipped: 0
-        }
-      }
+          failedOrSkipped: 0,
+        },
+      },
     });
   });
 }

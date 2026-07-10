@@ -16,12 +16,7 @@ export class AppError extends Error {
 }
 
 // The centralized global error handler
-export const errorHandler = (
-  err: any,
-  _req: Request,
-  res: Response,
-  _next: NextFunction
-): void => {
+export const errorHandler = (err: any, _req: Request, res: Response, _next: NextFunction): void => {
   // 1. If it's a known, operational error (like a 400 we threw manually)
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
@@ -50,7 +45,7 @@ export const errorHandler = (
 
   // 3. Fallback for unhandled, fatal errors (500)
   console.error('🔥 [Unhandled Server Error]:', err);
-  
+
   res.status(500).json({
     success: false,
     error: {

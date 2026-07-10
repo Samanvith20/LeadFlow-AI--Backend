@@ -2,7 +2,7 @@ import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import { AppError } from './errorHandler';
+import { AppError } from './errorHandler.js';
 
 const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'temp');
 

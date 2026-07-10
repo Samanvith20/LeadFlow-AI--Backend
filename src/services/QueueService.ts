@@ -1,4 +1,4 @@
-import { importQueue } from '../queues/importQueue';
+import { importQueue } from '../queues/importQueue.js';
 
 /**
  * Responsible for interacting with BullMQ and Redis.
