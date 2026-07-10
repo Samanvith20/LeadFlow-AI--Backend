@@ -7,8 +7,7 @@ dotenv.config();
 // 2. Define a strict schema for our environment variables
 const envSchema = z.object({
   PORT: z.string().default('3000'),
-  REDIS_HOST: z.string().default('127.0.0.1'),
-  REDIS_PORT: z.string().default('6379'),
+  UPSTASH_URL: z.string().min(1, 'UPSTASH_URL is required'),
   GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
 });
 

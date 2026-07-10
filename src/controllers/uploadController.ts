@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
+import fs from 'fs';
+import path from 'path';
 import { asyncHandler } from '../utils/asyncHandler';
 import { UploadService } from '../services/UploadService';
+import { QueueService } from '../services/QueueService';
 import { AppError } from '../middlewares/errorHandler';
 
 export class UploadController {
@@ -37,14 +40,19 @@ export class UploadController {
       throw new AppError(400, 'MISSING_IMPORT_ID', 'importId is required in the request body.');
     }
 
-    // TODO: Enqueue the job in BullMQ
-    const mockJobId = `job-${Date.now()}`;
+    const filePath = path.join(process.cwd(), 'uploads', 'temp', `${importId}.csv`);
+    if (!fs.existsSync(filePath)) {
+      throw new AppError(404, 'FILE_NOT_FOUND', 'The uploaded file could not be found.');
+    }
+
+    const job = await QueueService.enqueueImportJob(importId);
 
     res.status(202).json({
       success: true,
-      message: 'Processing started.',
+      message: 'Import job created successfully.',
       data: {
-        jobId: mockJobId
+        jobId: job.id,
+        status: 'queued'
       }
     });
   });
