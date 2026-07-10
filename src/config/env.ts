@@ -1,0 +1,24 @@
+import dotenv from 'dotenv';
+import { z } from 'zod';
+
+// 1. Load environment variables from the .env file into process.env
+dotenv.config();
+
+// 2. Define a strict schema for our environment variables
+const envSchema = z.object({
+  PORT: z.string().default('3000'),
+  REDIS_HOST: z.string().default('127.0.0.1'),
+  REDIS_PORT: z.string().default('6379'),
+  GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
+});
+
+// 3. Validate process.env against our schema
+const _env = envSchema.safeParse(process.env);
+
+if (!_env.success) {
+  console.error('❌ Invalid environment variables:', _env.error.format());
+  process.exit(1);
+}
+
+// 4. Export the strictly typed environment variables
+export const env = _env.data;
