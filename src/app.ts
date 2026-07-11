@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
+import { env } from './config/env.js';
 
 import { errorHandler } from './middlewares/errorHandler.js';
 
@@ -13,7 +14,7 @@ app.use(helmet());
 // Cross-Origin Resource Sharing
 app.use(
   cors({
-    origin: '*', // Allow all origins (adjust as needed for production)
+    origin: env.CORS_ORIGIN,
   }),
 );
 

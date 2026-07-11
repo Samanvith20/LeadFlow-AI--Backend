@@ -10,6 +10,7 @@ const envSchema = z.object({
   UPSTASH_URL: z.string().min(1, 'UPSTASH_URL is required'),
   OPENROUTER_API_KEY: z.string().min(1, 'OPENROUTER_API_KEY is required'),
   OPENROUTER_MODEL: z.string().min(1, 'OPENROUTER_MODEL is required'),
+  CORS_ORIGIN: z.string().url('CORS_ORIGIN must be a valid URL').default('http://localhost:3000'),
 });
 
 // 3. Validate process.env against our schema

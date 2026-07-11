@@ -47,6 +47,7 @@ Built with Node.js, TypeScript, BullMQ, Redis, and Gemini 2.5 Pro.
    ```env
    PORT=5000
    UPSTASH_URL=redis://your-redis-url:6379
+   CORS_ORIGIN=your_frontend_url
    GEMINI_API_KEY=your_gemini_api_key
    ```
 
